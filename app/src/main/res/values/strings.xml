@@ -6,8 +6,8 @@
     <string name="default_amount">1000.00</string>
     <string name="rate">Rate:"</string>
     <string name="default_rate">0.001</string>
-    <string name="invest">Invest</string>
-    <string name="investment_report">Investment Report:</string>
+    <string name="add_account">ADD ACCOUNT</string>
+    <string name="expense_report">Expense Report</string>
     <string name="initial">Initial:</string>
     <string name="current">Current:</string>
     <string name="rate_too_low">Minimum rate is 0.001!</string>

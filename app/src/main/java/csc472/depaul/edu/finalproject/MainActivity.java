@@ -22,13 +22,11 @@ public class MainActivity extends AppCompatActivity
 
         setContentView(R.layout.activity_main);
 
-        final Button invest = findViewById(R.id.invest);
+        final Button invest = findViewById(R.id.add_account);
         if (invest != null)
         {
             invest.setOnClickListener(onClickInvest);
         }
-
-        
     }
 
     @Override
@@ -69,23 +67,23 @@ public class MainActivity extends AppCompatActivity
 
     protected void onSaveInstanceState(Bundle savedInstanceState)
     {
-        if (savedInstanceState != null)
-        {
-            String sName = getEditViewText(R.id.name);
-            if (!sName.equals("")) {
-                savedInstanceState.putString(NAME_HOLDER, sName);
-            }
-
-            String sInitial = getEditViewText(R.id.investment);
-            if (!sInitial.equals("")) {
-                savedInstanceState.putString(INITIAL_HOLDER, sInitial);
-            }
-
-            String sRate = getEditViewText(R.id.rate);
-            if (!sRate.equals("")) {
-                savedInstanceState.putString(RATE_HOLDER, sRate);
-            }
-        }
+//        if (savedInstanceState != null)
+//        {
+//            String sName = getEditViewText(R.id.name);
+//            if (!sName.equals("")) {
+//                savedInstanceState.putString(NAME_HOLDER, sName);
+//            }
+//
+//            String sInitial = getEditViewText(R.id.investment);
+//            if (!sInitial.equals("")) {
+//                savedInstanceState.putString(INITIAL_HOLDER, sInitial);
+//            }
+//
+//            String sRate = getEditViewText(R.id.rate);
+//            if (!sRate.equals("")) {
+//                savedInstanceState.putString(RATE_HOLDER, sRate);
+//            }
+//        }
 
         super.onSaveInstanceState(savedInstanceState);
     }
@@ -94,25 +92,25 @@ public class MainActivity extends AppCompatActivity
     {
         super.onRestoreInstanceState(savedInstanceState);
 
-        if (savedInstanceState != null) {
-            EditText name = findViewById(R.id.name);
-            if (name != null && !name.getText().toString().equals(""))
-            {
-                name.setText(savedInstanceState.getString(NAME_HOLDER));
-            }
-
-            EditText investment = findViewById(R.id.investment);
-            if (investment != null & !investment.getText().toString().equals(""))
-            {
-                investment.setText(savedInstanceState.getString(INITIAL_HOLDER));
-            }
-
-            EditText rate = findViewById(R.id.rate);
-            if (rate != null && !rate.getText().toString().equals(""))
-            {
-                rate.setText(savedInstanceState.getString(RATE_HOLDER));
-            }
-        }
+//        if (savedInstanceState != null) {
+//            EditText name = findViewById(R.id.name);
+//            if (name != null && !name.getText().toString().equals(""))
+//            {
+//                name.setText(savedInstanceState.getString(NAME_HOLDER));
+//            }
+//
+//            EditText investment = findViewById(R.id.investment);
+//            if (investment != null & !investment.getText().toString().equals(""))
+//            {
+//                investment.setText(savedInstanceState.getString(INITIAL_HOLDER));
+//            }
+//
+//            EditText rate = findViewById(R.id.rate);
+//            if (rate != null && !rate.getText().toString().equals(""))
+//            {
+//                rate.setText(savedInstanceState.getString(RATE_HOLDER));
+//            }
+//        }
     }
 
     private final MainActivity getMainActivity()
