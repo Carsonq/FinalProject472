@@ -68,7 +68,7 @@ public class NewAuthActivity extends AppCompatActivity {
                 if (parsedUri.getScheme().equals("plaidlink")) {
                     String action = parsedUri.getHost();
                     HashMap<String, String> linkData = parseLinkUriData(parsedUri);
-
+                    Log.d("BESTLOG", linkData.get("event_name"));
                     if (action.equals("connected")) {
                         // User successfully linked
                         Log.d("Public token: ", linkData.get("public_token"));
@@ -108,6 +108,10 @@ public class NewAuthActivity extends AppCompatActivity {
                     } else if (action.equals("event")) {
                         // The event action is fired as the user moves through the Link flow
                         Log.d("Event name: ", linkData.get("event_name"));
+//                        if (linkData.get("event_name").equals("EXIT")) {
+//                            Intent intent = new Intent(getActivity(), MainActivity.class);
+//                            getActivity().startActivity(intent);
+//                        }
                     } else {
                         Log.d("Link action detected: ", action);
                     }
