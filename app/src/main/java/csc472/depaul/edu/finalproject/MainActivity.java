@@ -27,6 +27,8 @@ public class MainActivity extends AppCompatActivity
         {
             invest.setOnClickListener(onClickInvest);
         }
+
+        
     }
 
     @Override
