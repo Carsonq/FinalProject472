@@ -35,7 +35,7 @@ public class NewAuthActivity extends AppCompatActivity {
 //            }
 //        });
 
-        HashMap<String, String> linkInitializeOptions = new HashMap<String,String>();
+        HashMap<String, String> linkInitializeOptions = new HashMap<String, String>();
         linkInitializeOptions.put("key", "e8dfd608876767a01fe2536869c700");
         linkInitializeOptions.put("product", "transactions,auth,income");
         linkInitializeOptions.put("apiVersion", "v2"); // set this to "v1" if using the legacy Plaid API
@@ -67,7 +67,7 @@ public class NewAuthActivity extends AppCompatActivity {
                 Uri parsedUri = Uri.parse(url);
                 if (parsedUri.getScheme().equals("plaidlink")) {
                     String action = parsedUri.getHost();
-                    HashMap<String, String> linkData = parseLinkUriData(parsedUri);
+                    final HashMap<String, String> linkData = parseLinkUriData(parsedUri);
 
                     if (action.equals("connected")) {
                         // User successfully linked
@@ -76,6 +76,20 @@ public class NewAuthActivity extends AppCompatActivity {
                         Log.d("Account name: ", linkData.get("account_name"));
                         //Log.d("Institution type: ", linkData.get("institution_type"));
                         Log.d("Institution name: ", linkData.get("institution_name"));
+
+                        Account acc = new Account();
+                        acc.setPublicToken(linkData.get("public_token"));
+                        DataProcessor.addAccount(AccountDatabase.getAccountDatabase(getApplicationContext()), acc);
+
+//                        new Thread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                Account acc = new Account();
+//                                acc.setPublicToken(linkData.get("public_token"));
+//                                addAccount(AccountDatabase.getAccountDatabase(getApplicationContext()), acc);
+//                            }
+//                        }) .start();
+
 
                         // Reload Link in the Webview
                         // You will likely want to transition the view at this point.
@@ -131,7 +145,7 @@ public class NewAuthActivity extends AppCompatActivity {
         });
     }
 
-    private Uri generateLinkInitializationUrl(HashMap<String,String>linkOptions) {
+    private Uri generateLinkInitializationUrl(HashMap<String, String> linkOptions) {
         Uri.Builder builder = Uri.parse(linkOptions.get("baseUrl"))
                 .buildUpon()
                 .appendQueryParameter("isWebview", "true")
@@ -144,16 +158,15 @@ public class NewAuthActivity extends AppCompatActivity {
         return builder.build();
     }
 
-    public HashMap<String,String> parseLinkUriData(Uri linkUri) {
-        HashMap<String,String> linkData = new HashMap<String,String>();
-        for(String key : linkUri.getQueryParameterNames()) {
+    public HashMap<String, String> parseLinkUriData(Uri linkUri) {
+        HashMap<String, String> linkData = new HashMap<String, String>();
+        for (String key : linkUri.getQueryParameterNames()) {
             linkData.put(key, linkUri.getQueryParameter(key));
         }
         return linkData;
     }
 
-    private final NewAuthActivity getActivity()
-    {
+    private final NewAuthActivity getActivity() {
         return this;
     }
 }

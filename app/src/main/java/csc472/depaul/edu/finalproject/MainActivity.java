@@ -1,6 +1,7 @@
 package csc472.depaul.edu.finalproject;
 
 import android.app.DatePickerDialog;
+import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -56,6 +57,10 @@ public class MainActivity extends AppCompatActivity {
         if (expense_report != null) {
             expense_report.setOnClickListener(onClickExpenseReport);
         }
+
+        Account acc = new Account();
+        acc.setAccountId(1);
+        DataProcessor.queryAccount(AccountDatabase.getAccountDatabase(getApplicationContext()), acc);
     }
 
     @Override

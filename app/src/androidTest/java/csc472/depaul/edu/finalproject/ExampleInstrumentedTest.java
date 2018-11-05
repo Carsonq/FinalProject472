@@ -23,6 +23,6 @@ public class ExampleInstrumentedTest
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("csc472.depaul.edu.homeworkfive", appContext.getPackageName());
+        assertEquals("csc472.depaul.edu.finalproject", appContext.getPackageName());
     }
 }
