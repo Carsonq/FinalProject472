@@ -3,17 +3,21 @@ package csc472.depaul.edu.finalproject;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class DateRange implements Parcelable {
     String startDate;
     String endDate;
+    String formatString;
 
     DateRange(String startD, String endD) {
         startDate = startD;
         endDate = endD;
+        formatString = "MM/dd/yyyy";
     }
 
     public String getStartDate() {
@@ -24,47 +28,67 @@ public class DateRange implements Parcelable {
         return endDate;
     }
 
+    public Date getDStartDate() {
+        try {
+            return (new SimpleDateFormat(formatString)).parse(startDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public Date getDEndDate() {
+        try {
+            return (new SimpleDateFormat(formatString)).parse(endDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public String getFormatString() {
+        return formatString;
+    }
+
     public boolean isValid() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat(formatString);
         Calendar startCalendar = Calendar.getInstance();
         Calendar endCalendar = Calendar.getInstance();
 
         try {
             startCalendar.setTime(dateFormat.parse(startDate));
             endCalendar.setTime(dateFormat.parse(endDate));
-            return startCalendar.compareTo(endCalendar)<=0;
+            return startCalendar.compareTo(endCalendar) <= 0;
         } catch (ParseException e) {
             e.printStackTrace();
             return false;
         }
     }
 
-    public DateRange(Parcel in){
+    public DateRange(Parcel in) {
         this.startDate = in.readString();
         this.endDate = in.readString();
+        this.formatString = in.readString();
     }
 
     @Override
-    public int describeContents()
-    {
+    public int describeContents() {
         return 0;
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.startDate);
-        dest.writeString(this.startDate);
+        dest.writeString(this.endDate);
+        dest.writeString(this.formatString);
     }
 
-    public static final Parcelable.Creator<DateRange> CREATOR = new Parcelable.Creator<DateRange>()
-    {
-        public DateRange createFromParcel(Parcel in)
-        {
+    public static final Parcelable.Creator<DateRange> CREATOR = new Parcelable.Creator<DateRange>() {
+        public DateRange createFromParcel(Parcel in) {
             return new DateRange(in);
         }
 
-        public DateRange[] newArray(int size)
-        {
+        public DateRange[] newArray(int size) {
             return new DateRange[size];
         }
     };

@@ -18,7 +18,10 @@ public interface DaoAccess {
     void insertMultipleAccounts(List<Account> accountList);
 
     @Query("SELECT * FROM Account WHERE accountId =:accountId")
-    Account fetchOneAccountbyAccountId(int accountId);
+    List<Account> fetchOneAccountbyAccountId(int accountId);
+
+    @Query("SELECT * FROM Account")
+    List<Account> fetchAll();
 
     @Update
     void updateAccount(Account accounts);

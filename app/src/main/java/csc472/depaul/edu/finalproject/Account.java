@@ -9,8 +9,10 @@ import android.support.annotation.NonNull;
 public class Account {
     @PrimaryKey(autoGenerate = true)
     private int accountId;
-    @ColumnInfo(name = "public_token")
-    private String publicToken;
+    @ColumnInfo(name = "access_token")
+    private String accessToken;
+    @ColumnInfo(name = "item_id")
+    private String itemId;
 
     public Account() {
     }
@@ -23,11 +25,19 @@ public class Account {
         this.accountId = accountId;
     }
 
-    public String getPublicToken() {
-        return publicToken;
+    public String getAccessToken() {
+        return accessToken;
     }
 
-    public void setPublicToken(String publicToken) {
-        this.publicToken = publicToken;
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
+    }
+
+    public String getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(String itemId) {
+        this.itemId = itemId;
     }
 }

@@ -18,11 +18,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ExpenseReportActivity"></activity>
+        <activity android:name=".ExpenseReportActivity" />
         <activity
             android:name=".NewAuthActivity"
             android:label="@string/title_activity_new_auth"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

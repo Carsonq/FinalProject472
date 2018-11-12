@@ -69,14 +69,6 @@
         android:layout_marginTop="20sp"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/initialDisplay"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/initial"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            />
 
         <TextView
             android:id="@+id/initial"
@@ -95,14 +87,6 @@
         android:layout_marginTop="20sp"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/currentDisplay"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/current"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            />
 
         <TextView
             android:id="@+id/current"
@@ -120,15 +104,6 @@
         android:layout_gravity="center"
         android:layout_marginTop="20sp"
         android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/rateDisplay"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/rate"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            />
 
         <TextView
             android:id="@+id/rate"

@@ -2,6 +2,7 @@ package csc472.depaul.edu.finalproject;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,7 +14,19 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.HashMap;
+
+import javax.net.ssl.HttpsURLConnection;
 
 import csc472.depaul.edu.finalproject.R;
 
@@ -36,7 +49,7 @@ public class NewAuthActivity extends AppCompatActivity {
 //        });
 
         HashMap<String, String> linkInitializeOptions = new HashMap<String, String>();
-        linkInitializeOptions.put("key", "e8dfd608876767a01fe2536869c700");
+        linkInitializeOptions.put("key", getResources().getString(R.string.public_key));
         linkInitializeOptions.put("product", "transactions,auth,income");
         linkInitializeOptions.put("apiVersion", "v2"); // set this to "v1" if using the legacy Plaid API
         linkInitializeOptions.put("env", "sandbox");
@@ -54,7 +67,6 @@ public class NewAuthActivity extends AppCompatActivity {
         webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
         WebView.setWebContentsDebuggingEnabled(true);
 
-        Log.d("BESTTEST", linkInitializationUrl.toString());
         plaidLinkWebview.loadUrl(linkInitializationUrl.toString());
 
         plaidLinkWebview.setWebViewClient(new WebViewClient() {
@@ -77,9 +89,24 @@ public class NewAuthActivity extends AppCompatActivity {
                         //Log.d("Institution type: ", linkData.get("institution_type"));
                         Log.d("Institution name: ", linkData.get("institution_name"));
 
-                        Account acc = new Account();
-                        acc.setPublicToken(linkData.get("public_token"));
-                        DataProcessor.addAccount(AccountDatabase.getAccountDatabase(getApplicationContext()), acc);
+                        new AccessToken().execute(getResources().getString(R.string.plaid_mode),
+                                getResources().getString(R.string.client_id),
+                                getResources().getString(R.string.secret),
+                                linkData.get("public_token"),
+                                AccountDatabase.getAccountDatabase(getApplicationContext()));
+
+//                        plaidLinkWebview.setWebViewClient(new WebViewClient() {
+//                            @Override
+//                            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+//                                Uri parsedUri = Uri.parse(url);
+//                                final HashMap<String, String> linkData = parseLinkUriData(parsedUri);
+//                                return true;
+//                            }
+//                        });
+
+//                        Account acc = new Account();
+//                        acc.setPublicToken(linkData.get("public_token"));
+//                        DataProcessor.addAccount(AccountDatabase.getAccountDatabase(getApplicationContext()), acc);
 
 //                        new Thread(new Runnable() {
 //                            @Override
@@ -170,3 +197,39 @@ public class NewAuthActivity extends AppCompatActivity {
         return this;
     }
 }
+
+//class CallAPI extends AsyncTask<String, String, String> {
+//
+//    public CallAPI(){
+//        //set context variables if required
+//    }
+//
+//    @Override
+//    protected void onPreExecute() {
+//        super.onPreExecute();
+//    }
+//
+//    @Override
+//    protected void doInBackground(String... params) {
+//        String urlString = params[0]; // URL to call
+//        String data = params[1]; //data to post
+//        OutputStream out = null;
+//
+//        try {
+//            URL url = new URL(urlString);
+//            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+//            out = new BufferedOutputStream(urlConnection.getOutputStream());
+//
+//            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out, "UTF-8"));
+//            writer.write(data);
+//            writer.flush();
+//            writer.close();
+//            out.close();
+//
+//            urlConnection.connect();
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//        }
+//    }
+//}
+

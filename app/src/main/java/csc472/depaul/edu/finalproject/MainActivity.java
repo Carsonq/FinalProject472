@@ -57,10 +57,6 @@ public class MainActivity extends AppCompatActivity {
         if (expense_report != null) {
             expense_report.setOnClickListener(onClickExpenseReport);
         }
-
-        Account acc = new Account();
-        acc.setAccountId(1);
-        DataProcessor.queryAccount(AccountDatabase.getAccountDatabase(getApplicationContext()), acc);
     }
 
     @Override
@@ -174,7 +170,6 @@ public class MainActivity extends AppCompatActivity {
                     toast.show();
                 }
             }
-
         }
     };
 

@@ -1,15 +1,15 @@
 <resources>
+    <string name="plaid_mode">sandbox</string>
+    <string name="public_key">e8dfd608876767a01fe2536869c700</string>
+    <string name="client_id">5bc62c7244fc260011e05297</string>
+    <string name="secret">1db1964360473b2c95f6c2dc730037</string>
+
     <string name="app_name">FinalProject</string>
     <string name="start_date">Start Date:</string>
     <string name="end_date">End Date:</string>
-    <string name="default_amount">1000.00</string>
-    <string name="rate">Rate:"</string>
-    <string name="default_rate">0.001</string>
     <string name="add_account">ADD ACCOUNT</string>
     <string name="expense_report">Expense Report</string>
-    <string name="initial">Initial:</string>
-    <string name="current">Current:</string>
-    <string name="rate_too_low">Minimum rate is 0.001!</string>
     <string name="fields_cannot_be_empty">Please fill in all fields!</string>
-    <string name="title_activity_new_auth">NewAuth</string>
+    <string name="title_activity_new_auth">Add New Account</string>
+    <string name="title_activity_expense_report">Expense Category</string>
 </resources>
