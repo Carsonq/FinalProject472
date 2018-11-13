@@ -6,7 +6,9 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
-public class ExpenseReportActivity extends AppCompatActivity implements IInvestmentObserver
+import java.util.List;
+
+public class ExpenseReportActivity extends AppCompatActivity
 {
     private final static int TIME_UPDATE = 0x123456;
     private static String NAME_HOLDER = "NAME_HOLDER";
@@ -21,53 +23,13 @@ public class ExpenseReportActivity extends AppCompatActivity implements IInvestm
 
         setContentView(R.layout.activity_expense_report);
 
-        if (savedInstanceState != null)
-        {
-            setTitle(savedInstanceState.getString(NAME_HOLDER));
-//            final TextView name = findViewById(R.id.name);
-//            if (name != null) {
-//                name.setText(savedInstanceState.getString(NAME_HOLDER));
-//            }
+        DateRange dateRange = (DateRange) getIntent().getParcelableExtra("date_range");
+        setTitle(R.string.title_activity_expense_report);
 
-            final TextView initial = findViewById(R.id.initial);
-            if (initial != null) {
-                initial.setText(savedInstanceState.getString(INITIAL_HOLDER));
-            }
+        Account acc = new Account();
+        acc.setAccountId(1);
+        DataProcessor.queryAccount(AccountDatabase.getAccountDatabase(getApplicationContext()), new Transactions(getResources().getString(R.string.client_id), getResources().getString(R.string.secret), dateRange));
 
-            final TextView current = findViewById(R.id.current);
-            if (current != null) {
-                current.setText(savedInstanceState.getString(CURRENT_HOLDER));
-            }
-
-            final TextView rate = findViewById(R.id.rate);
-            if (rate != null) {
-                rate.setText(savedInstanceState.getString(RATE_HOLDER));
-            }
-        }
-        else {
-            DateRange dateRange = (DateRange) getIntent().getParcelableExtra("date_range");
-            setTitle(dateRange.getStartDate());
-
-//            final TextView name = findViewById(R.id.name);
-//            if (name != null) {
-//                name.setText(investment.getName());
-//            }
-
-//            final TextView initial = findViewById(R.id.initial);
-//            if (initial != null) {
-//                initial.setText(investment.getInitialBalance().toString());
-//            }
-//
-//            final TextView current = findViewById(R.id.current);
-//            if (current != null) {
-//                current.setText(investment.getInitialBalance().toString());
-//            }
-//
-//            final TextView rate = findViewById(R.id.rate);
-//            if (rate != null) {
-//                rate.setText(investment.getRate().toString());
-//            }
-        }
     }
 
 //    private void startUpdate()
@@ -154,19 +116,19 @@ public class ExpenseReportActivity extends AppCompatActivity implements IInvestm
         super.onRestoreInstanceState(savedInstanceState);
     }
 
-    @Override
-    public void investmentUpdate(int nthUpdate)
-    {
-        //you should update your investment data before sending message below
-        Message message = Message.obtain();
-        if (message != null)
-        {
-            message.what = TIME_UPDATE;
-            message.arg1 =  nthUpdate;
-
-            mainThreadHandler.sendMessage(message);
-        }
-    }
+//    @Override
+//    public void getTransactions(List<Account> accounts)
+//    {
+//        //you should update your investment data before sending message below
+//        Message message = Message.obtain();
+//        if (message != null)
+//        {
+//            message.what = TIME_UPDATE;
+////            message.arg1 =  nthUpdate;
+//
+//            mainThreadHandler.sendMessage(message);
+//        }
+//    }
 
     private Handler mainThreadHandler = new Handler(new Handler.Callback()
     {

@@ -3,7 +3,8 @@ package csc472.depaul.edu.finalproject;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public final class Investment implements Parcelable
+public final class
+Investment implements Parcelable
 {
     private String  name           = null;
     private Balance initialBalance = null;

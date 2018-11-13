@@ -11,7 +11,7 @@ public class InvestmentThread implements Runnable
 {
     private int investment = 0;
     private ScheduledThreadPoolExecutor scheduler = null;
-    private ArrayList<IInvestmentObserver> investmentObservers = new ArrayList<IInvestmentObserver>();
+    private ArrayList<ITokenObserver> investmentObservers = new ArrayList<ITokenObserver>();
 	private static InvestmentThread investmentThread = null;
 
 	static
@@ -28,9 +28,9 @@ public class InvestmentThread implements Runnable
 		return investmentThread;
 	}
 
-	public synchronized void start(final IInvestmentObserver iInvestmentObserver)
+	public synchronized void start(final ITokenObserver iTokenObserver)
 	{
-        investmentObservers.add(iInvestmentObserver);
+        investmentObservers.add(iTokenObserver);
 
         if (scheduler == null)
         {
@@ -39,9 +39,9 @@ public class InvestmentThread implements Runnable
 		}
 	}
 
-    public synchronized void stop(final IInvestmentObserver iInvestmentObserver)
+    public synchronized void stop(final ITokenObserver iTokenObserver)
     {
-        investmentObservers.remove(iInvestmentObserver);
+        investmentObservers.remove(iTokenObserver);
 
         if (scheduler != null)
         {
@@ -59,13 +59,13 @@ public class InvestmentThread implements Runnable
 
         if (investmentObservers != null)
         {
-            Iterator<IInvestmentObserver> iiInvestmentObservers = investmentObservers.iterator();
+            Iterator<ITokenObserver> iiInvestmentObservers = investmentObservers.iterator();
             while (iiInvestmentObservers.hasNext())
             {
-                IInvestmentObserver iInvestmentObservers = iiInvestmentObservers.next();
-                if (iInvestmentObservers != null)
+                ITokenObserver iTokenObservers = iiInvestmentObservers.next();
+                if (iTokenObservers != null)
                 {
-                    iInvestmentObservers.investmentUpdate(investment);
+//                    iTokenObservers.investmentObservers(investment);
                 }
             }
         }
