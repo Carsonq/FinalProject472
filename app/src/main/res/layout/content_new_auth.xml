@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="csc472.depaul.edu.finalproject.NewAuthActivity"
+    tools:context="csc472.depaul.edu.finalproject.activities.NewAuthActivity"
     tools:showIn="@layout/activity_new_auth">
 
     <WebView

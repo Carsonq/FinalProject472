@@ -1,34 +1,20 @@
-package csc472.depaul.edu.finalproject;
+package csc472.depaul.edu.finalproject.activities;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.DataOutputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.HashMap;
 
-import javax.net.ssl.HttpsURLConnection;
-
+import csc472.depaul.edu.finalproject.models.AccessToken;
 import csc472.depaul.edu.finalproject.R;
+import csc472.depaul.edu.finalproject.db.AccountDatabase;
 
 public class NewAuthActivity extends AppCompatActivity {
 

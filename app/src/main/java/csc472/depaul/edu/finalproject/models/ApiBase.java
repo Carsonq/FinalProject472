@@ -1,4 +1,4 @@
-package csc472.depaul.edu.finalproject;
+package csc472.depaul.edu.finalproject.models;
 
 public class ApiBase {
     protected static String clientId;

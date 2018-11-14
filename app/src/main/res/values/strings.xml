@@ -12,4 +12,5 @@
     <string name="fields_cannot_be_empty">Please fill in all fields!</string>
     <string name="title_activity_new_auth">Add New Account</string>
     <string name="title_activity_expense_report">Expense Category</string>
+    <string name="sp_filename">QUERY_DATA</string>
 </resources>

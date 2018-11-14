@@ -1,4 +1,4 @@
-package csc472.depaul.edu.finalproject;
+package csc472.depaul.edu.finalproject.models;
 
 import java.util.concurrent.ThreadFactory;
 

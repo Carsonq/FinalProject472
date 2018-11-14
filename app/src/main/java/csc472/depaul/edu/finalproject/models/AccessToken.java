@@ -1,4 +1,4 @@
-package csc472.depaul.edu.finalproject;
+package csc472.depaul.edu.finalproject.models;
 
 import android.os.AsyncTask;
 
@@ -6,11 +6,9 @@ import com.plaid.client.PlaidClient;
 import com.plaid.client.request.ItemPublicTokenExchangeRequest;
 import com.plaid.client.response.ItemPublicTokenExchangeResponse;
 
-import org.json.JSONObject;
-
-import java.util.HashMap;
-
-import csc472.depaul.edu.finalproject.utils.HttpUtils;
+import csc472.depaul.edu.finalproject.db.Account;
+import csc472.depaul.edu.finalproject.db.AccountDatabase;
+import csc472.depaul.edu.finalproject.db.DataProcessor;
 import retrofit2.Response;
 
 

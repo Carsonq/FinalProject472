@@ -1,23 +1,24 @@
-package csc472.depaul.edu.finalproject;
+package csc472.depaul.edu.finalproject.activities;
 
+import android.Manifest;
 import android.app.DatePickerDialog;
-import android.arch.persistence.room.Room;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.PopupWindow;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
+import csc472.depaul.edu.finalproject.models.DateRange;
+import csc472.depaul.edu.finalproject.R;
 
 public class MainActivity extends AppCompatActivity {
     private final static float MIN_RATE = 0.001f;
@@ -33,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+
+        requestInternetPermission();
 
         final Button add_account = findViewById(R.id.add_account);
         if (add_account != null) {
@@ -57,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
         if (expense_report != null) {
             expense_report.setOnClickListener(onClickExpenseReport);
         }
+
+        //this.requestWindowFeature(Window.FEATURE_NO_TITLE);
     }
 
     @Override
@@ -229,5 +234,25 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return sText;
+    }
+
+    private void requestInternetPermission()
+    {
+        int internetPermission = ActivityCompat.checkSelfPermission(getMainActivity(), Manifest.permission.INTERNET);
+
+        if (internetPermission != PackageManager.PERMISSION_GRANTED)
+        {
+            int REQUEST_INTERNET = 1;
+
+            String[] PERMISSIONS_INTERNET = {
+                    Manifest.permission.INTERNET
+            };
+
+            ActivityCompat.requestPermissions(
+                    getMainActivity(),
+                    PERMISSIONS_INTERNET,
+                    REQUEST_INTERNET
+            );
+        }
     }
 }

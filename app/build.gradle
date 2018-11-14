@@ -43,4 +43,5 @@ dependencies {
 
     // https://mvnrepository.com/artifact/com.plaid/plaid-java
     implementation group: 'com.plaid', name: 'plaid-java', version: '3.0.5'
+    implementation 'com.github.lecho:hellocharts-library:1.5.8@aar'
 }

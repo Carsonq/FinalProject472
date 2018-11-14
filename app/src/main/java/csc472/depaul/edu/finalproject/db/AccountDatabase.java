@@ -1,4 +1,4 @@
-package csc472.depaul.edu.finalproject;
+package csc472.depaul.edu.finalproject.db;
 
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;

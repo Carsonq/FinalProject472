@@ -1,4 +1,4 @@
-package csc472.depaul.edu.finalproject;
+package csc472.depaul.edu.finalproject.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;

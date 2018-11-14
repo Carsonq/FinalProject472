@@ -1,9 +1,8 @@
-package csc472.depaul.edu.finalproject;
+package csc472.depaul.edu.finalproject.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -14,7 +13,7 @@ public class DateRange implements Parcelable {
     String endDate;
     String formatString;
 
-    DateRange(String startD, String endD) {
+    public DateRange(String startD, String endD) {
         startDate = startD;
         endDate = endD;
         formatString = "MM/dd/yyyy";

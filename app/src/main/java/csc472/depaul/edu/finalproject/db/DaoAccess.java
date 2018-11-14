@@ -1,4 +1,4 @@
-package csc472.depaul.edu.finalproject;
+package csc472.depaul.edu.finalproject.db;
 
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
@@ -12,7 +12,7 @@ import java.util.List;
 public interface DaoAccess {
 
     @Insert
-    void insertOnlySingleAccount(Account accounts);
+    void insertOnlySingleAccount(Account account);
 
     @Insert
     void insertMultipleAccounts(List<Account> accountList);
@@ -21,11 +21,12 @@ public interface DaoAccess {
     List<Account> fetchOneAccountbyAccountId(int accountId);
 
     @Query("SELECT * FROM Account")
-    List<Account> fetchAll();
+    List<Account> fetchAllAccounts();
 
     @Update
     void updateAccount(Account accounts);
 
     @Delete
     void deleteAccount(Account accounts);
+
 }
