@@ -44,20 +44,6 @@ public class MainActivity extends AppCompatActivity {
             account_management.setOnClickListener(onClickManageAccount);
         }
 
-//        String today_date = dateFormat.format(myCalendar.getTime());
-
-//        final EditText start_date = findViewById(R.id.start_date);
-//        start_date.setHint(today_date);
-//        if (start_date != null) {
-//            start_date.setOnClickListener(onClickCalendar);
-//        }
-//
-//        final EditText end_date = findViewById(R.id.end_date);
-//        end_date.setHint(today_date);
-//        if (end_date != null) {
-//            end_date.setOnClickListener(onClickCalendar);
-//        }
-
         final CardView expense_report = findViewById(R.id.expense_report);
         if (expense_report != null) {
             expense_report.setOnClickListener(onClickExpenseReport);
@@ -156,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             Date e = myCalendar.getTime();
-            myCalendar.add(Calendar.MONTH, -1);
+            myCalendar.add(Calendar.DAY_OF_MONTH, -15);
             Date s = myCalendar.getTime();
             DateRange dr = new DateRange(s, e);
 
@@ -170,32 +156,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     };
-
-    private View.OnClickListener onClickCalendar = new View.OnClickListener() {
-        @Override
-        public void onClick(final View v) {
-            DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                    myCalendar.set(Calendar.YEAR, year);
-                    myCalendar.set(Calendar.MONTH, monthOfYear);
-                    myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                    updateDate(v);
-                }
-            };
-
-            new DatePickerDialog(getMainActivity(), date,
-                    myCalendar.get(Calendar.YEAR),
-                    myCalendar.get(Calendar.MONTH),
-                    myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-        }
-    };
-
-    private void updateDate(View d) {
-        if (d != null) {
-            ((EditText) d).setText(dateFormat.format(myCalendar.getTime()));
-        }
-    }
 
     //helper functions below
     private boolean validateEditTextField(int id) {

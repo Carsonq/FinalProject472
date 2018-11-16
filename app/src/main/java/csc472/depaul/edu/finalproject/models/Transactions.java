@@ -13,6 +13,7 @@ import java.util.List;
 
 import csc472.depaul.edu.finalproject.R;
 import csc472.depaul.edu.finalproject.db.Account;
+import csc472.depaul.edu.finalproject.db.AccountDatabase;
 import csc472.depaul.edu.finalproject.db.DataProcessor;
 import csc472.depaul.edu.finalproject.db.Transaction;
 import csc472.depaul.edu.finalproject.db.TransactionCategory;
@@ -99,5 +100,10 @@ public class Transactions extends ApiBase implements ITransactionObserver {
         for (ILoadDataObserver ilo : iLoadDataObservers) {
             ilo.loadData();
         }
+    }
+
+    @Override
+    public void getAccounts() {
+        DataProcessor.queryAccounts(AccountDatabase.getAccountDatabase(context), this);
     }
 }

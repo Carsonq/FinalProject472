@@ -10,5 +10,6 @@ public interface ITransactionObserver
 	public void getTransactions(List<Account> acc);
 	public void getData();
 	public void saveQueryResult(List<TransactionCategory> tra);
+	public void getAccounts();
 }
       

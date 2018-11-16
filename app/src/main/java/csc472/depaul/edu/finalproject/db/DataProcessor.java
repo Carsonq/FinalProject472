@@ -31,6 +31,10 @@ public class DataProcessor {
         new AsyncDBOperation(db, null, "query_transactions").execute();
     }
 
+    public static void deleteTransactions(@NonNull final TransactionDatabase db, ITransactionObserver ito) {
+        new AsyncDBOperation(db, null, "delete_transactions", ito).execute();
+    }
+
     public static void queryTransactionsGroupCategory(@NonNull final TransactionDatabase db, ITransactionObserver ito) {
         new AsyncDBOperation(db, null, "query_transactions_group_category", ito).execute();
     }
@@ -61,6 +65,10 @@ public class DataProcessor {
     private static List<TransactionCategory> queryTaskByCategory(TransactionDatabase db) {
         List<TransactionCategory> res = db.daoTransaction().fetchTransactionsByCategory();
         return res;
+    }
+
+    private static void deleteTask(TransactionDatabase db) {
+        db.daoTransaction().deleteAllTransactions();
     }
 
 //    private static void saveToSP(int x) {
@@ -125,7 +133,16 @@ public class DataProcessor {
                         ito.saveQueryResult(tra);
                     }
                 }
+            } else if (type.equals("delete_transactions")) {
+                deleteTask((TransactionDatabase) db);
+                if (iTransactionObservers != null) {
+                    for (ITransactionObserver ito : iTransactionObservers) {
+                        ito.getAccounts();
+                    }
+                }
             }
+
+
             return null;
         }
     }
