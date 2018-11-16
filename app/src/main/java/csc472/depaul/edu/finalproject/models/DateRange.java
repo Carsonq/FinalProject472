@@ -14,9 +14,15 @@ public class DateRange implements Parcelable {
     String formatString;
 
     public DateRange(String startD, String endD) {
+        formatString = "MM/dd/yyyy";
         startDate = startD;
         endDate = endD;
+    }
+
+    public DateRange(Date startD, Date endD) {
         formatString = "MM/dd/yyyy";
+        startDate = parseDate(startD);
+        endDate = parseDate(endD);
     }
 
     public String getStartDate() {
@@ -62,6 +68,11 @@ public class DateRange implements Parcelable {
             e.printStackTrace();
             return false;
         }
+    }
+
+    private String parseDate(Date d) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(formatString);
+        return dateFormat.format(d);
     }
 
     public DateRange(Parcel in) {

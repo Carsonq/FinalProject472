@@ -1,16 +1,19 @@
 <resources>
+    <string name="app_name">FinalProject</string>
     <string name="plaid_mode">sandbox</string>
     <string name="public_key">e8dfd608876767a01fe2536869c700</string>
     <string name="client_id">5bc62c7244fc260011e05297</string>
     <string name="secret">1db1964360473b2c95f6c2dc730037</string>
-
-    <string name="app_name">FinalProject</string>
-    <string name="start_date">Start Date:</string>
-    <string name="end_date">End Date:</string>
-    <string name="add_account">ADD ACCOUNT</string>
+    <string name="start_date">Start Date</string>
+    <string name="end_date">End Date</string>
+    <string name="add_account">Add Account</string>
+    <string name="report_refresh">Refresh</string>
+    <string name="title_activity_account_management">Account Management</string>
     <string name="expense_report">Expense Report</string>
     <string name="fields_cannot_be_empty">Please fill in all fields!</string>
     <string name="title_activity_new_auth">Add New Account</string>
     <string name="title_activity_expense_report">Expense Category</string>
     <string name="sp_filename">QUERY_DATA</string>
+    <string name="wrong_password">You enter an incorrect password!</string>
+    <string name="fingerprint_instructions">Place your fingertip on the Home button to verify your identity</string>
 </resources>

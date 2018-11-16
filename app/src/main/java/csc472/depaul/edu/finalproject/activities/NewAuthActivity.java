@@ -22,8 +22,8 @@ public class NewAuthActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_auth);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
 
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
@@ -78,7 +78,7 @@ public class NewAuthActivity extends AppCompatActivity {
                         new AccessToken().execute(getResources().getString(R.string.plaid_mode),
                                 getResources().getString(R.string.client_id),
                                 getResources().getString(R.string.secret),
-                                linkData.get("public_token"),
+                                linkData,
                                 AccountDatabase.getAccountDatabase(getApplicationContext()));
 
 //                        plaidLinkWebview.setWebViewClient(new WebViewClient() {
@@ -114,7 +114,7 @@ public class NewAuthActivity extends AppCompatActivity {
 //
 //                        plaidLinkWebview.loadUrl(linkUrl.toString());
 
-                        Intent intent = new Intent(getActivity(), MainActivity.class);
+                        Intent intent = new Intent(getActivity(), AccountManagementActivity.class);
 //                        intent.putExtra("investment_data", investment);
                         getActivity().startActivity(intent);
                     } else if (action.equals("exit")) {
@@ -182,40 +182,34 @@ public class NewAuthActivity extends AppCompatActivity {
     private final NewAuthActivity getActivity() {
         return this;
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+    }
 }
-
-//class CallAPI extends AsyncTask<String, String, String> {
-//
-//    public CallAPI(){
-//        //set context variables if required
-//    }
-//
-//    @Override
-//    protected void onPreExecute() {
-//        super.onPreExecute();
-//    }
-//
-//    @Override
-//    protected void doInBackground(String... params) {
-//        String urlString = params[0]; // URL to call
-//        String data = params[1]; //data to post
-//        OutputStream out = null;
-//
-//        try {
-//            URL url = new URL(urlString);
-//            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-//            out = new BufferedOutputStream(urlConnection.getOutputStream());
-//
-//            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out, "UTF-8"));
-//            writer.write(data);
-//            writer.flush();
-//            writer.close();
-//            out.close();
-//
-//            urlConnection.connect();
-//        } catch (Exception e) {
-//            System.out.println(e.getMessage());
-//        }
-//    }
-//}
-

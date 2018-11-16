@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import csc472.depaul.edu.finalproject.models.DateRange;
 import csc472.depaul.edu.finalproject.R;
@@ -37,31 +39,29 @@ public class MainActivity extends AppCompatActivity {
 
         requestInternetPermission();
 
-        final Button add_account = findViewById(R.id.add_account);
-        if (add_account != null) {
-            add_account.setOnClickListener(onClickAddAccount);
+        final CardView account_management = findViewById(R.id.manage_account);
+        if (account_management != null) {
+            account_management.setOnClickListener(onClickManageAccount);
         }
 
-        String today_date = dateFormat.format(myCalendar.getTime());
+//        String today_date = dateFormat.format(myCalendar.getTime());
 
-        final EditText start_date = findViewById(R.id.start_date);
-        start_date.setHint(today_date);
-        if (start_date != null) {
-            start_date.setOnClickListener(onClickCalendar);
-        }
+//        final EditText start_date = findViewById(R.id.start_date);
+//        start_date.setHint(today_date);
+//        if (start_date != null) {
+//            start_date.setOnClickListener(onClickCalendar);
+//        }
+//
+//        final EditText end_date = findViewById(R.id.end_date);
+//        end_date.setHint(today_date);
+//        if (end_date != null) {
+//            end_date.setOnClickListener(onClickCalendar);
+//        }
 
-        final EditText end_date = findViewById(R.id.end_date);
-        end_date.setHint(today_date);
-        if (end_date != null) {
-            end_date.setOnClickListener(onClickCalendar);
-        }
-
-        final Button expense_report = findViewById(R.id.expense_report);
+        final CardView expense_report = findViewById(R.id.expense_report);
         if (expense_report != null) {
             expense_report.setOnClickListener(onClickExpenseReport);
         }
-
-        //this.requestWindowFeature(Window.FEATURE_NO_TITLE);
     }
 
     @Override
@@ -144,10 +144,10 @@ public class MainActivity extends AppCompatActivity {
         return this;
     }
 
-    private View.OnClickListener onClickAddAccount = new View.OnClickListener() {
+    private View.OnClickListener onClickManageAccount = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(getMainActivity(), NewAuthActivity.class);
+            Intent intent = new Intent(getMainActivity(), AccountManagementActivity.class);
             getMainActivity().startActivity(intent);
         }
     };
@@ -155,40 +155,32 @@ public class MainActivity extends AppCompatActivity {
     private View.OnClickListener onClickExpenseReport = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            final EditText start_date = findViewById(R.id.start_date);
-            final EditText end_date = findViewById(R.id.end_date);
+            Date e = myCalendar.getTime();
+            myCalendar.add(Calendar.MONTH, -1);
+            Date s = myCalendar.getTime();
+            DateRange dr = new DateRange(s, e);
 
-            String start_date_str = start_date.getText().toString();
-            String end_date_str = end_date.getText().toString();
-
-            if (start_date_str.equals("") || end_date_str.equals("")) {
-                Toast toast = Toast.makeText(getApplicationContext(), "Start date and end date could not be empty!", Toast.LENGTH_LONG);
-                toast.show();
+            if (dr.isValid()) {
+                Intent intent = new Intent(getMainActivity(), ExpenseReportActivity.class);
+                intent.putExtra("date_range", dr);
+                getMainActivity().startActivity(intent);
             } else {
-                DateRange dr = new DateRange(start_date_str, end_date_str);
-                if (dr.isValid()) {
-                    Intent intent = new Intent(getMainActivity(), ExpenseReportActivity.class);
-                    intent.putExtra("date_range", dr);
-                    getMainActivity().startActivity(intent);
-                } else {
-                    Toast toast = Toast.makeText(getApplicationContext(), "The start date must be prior to the end date!", Toast.LENGTH_LONG);
-                    toast.show();
-                }
+                Toast toast = Toast.makeText(getApplicationContext(), "The start date must be prior to the end date!", Toast.LENGTH_LONG);
+                toast.show();
             }
         }
     };
 
     private View.OnClickListener onClickCalendar = new View.OnClickListener() {
         @Override
-        public void onClick(View v) {
-            final View vv = v;
+        public void onClick(final View v) {
             DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                     myCalendar.set(Calendar.YEAR, year);
                     myCalendar.set(Calendar.MONTH, monthOfYear);
                     myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                    updateDate(vv);
+                    updateDate(v);
                 }
             };
 

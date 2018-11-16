@@ -23,6 +23,10 @@ public class DataProcessor {
         new AsyncDBOperation(db, null, "query_accounts", ito).execute();
     }
 
+    public static void queryAccounts(@NonNull final AccountDatabase db) {
+        new AsyncDBOperation(db, null, "query_accounts_list").execute();
+    }
+
     public static void queryTransactions(@NonNull final TransactionDatabase db) {
         new AsyncDBOperation(db, null, "query_transactions").execute();
     }
@@ -110,6 +114,8 @@ public class DataProcessor {
                         ito.getTransactions(accs);
                     }
                 }
+            } else if (type.equals("query_accounts_list")) {
+                List<Account> accs = queryTask((AccountDatabase) db);
             } else if (type.equals("query_transactions")) {
                 queryTask((TransactionDatabase) db);
             } else if (type.equals("query_transactions_group_category")) {
