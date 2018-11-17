@@ -16,15 +16,19 @@ import java.util.List;
 
 import csc472.depaul.edu.finalproject.R;
 import csc472.depaul.edu.finalproject.db.Account;
+import csc472.depaul.edu.finalproject.db.AccountViewModel;
+import csc472.depaul.edu.finalproject.models.command.AccountDeleteCommand;
 
 public class AccountsAdapter extends RecyclerView.Adapter<AccountsAdapter.ViewHolder> {
 
     private Context context;
     private List<Account> accountList;
+    private AccountDeleteCommand accountDeleteCommand;
 
     public AccountsAdapter(Context context) {
         this.context = context;
         this.accountList = new ArrayList<>();
+        accountDeleteCommand = new AccountDeleteCommand();
     }
 
     @NonNull
@@ -97,9 +101,6 @@ public class AccountsAdapter extends RecyclerView.Adapter<AccountsAdapter.ViewHo
 
 
     public void setData(List<Account> newData) {
-//        this.accountList = newData;
-//        notifyDataSetChanged();
-
         if (this.accountList != null) {
             PostDiffCallback postDiffCallback = new PostDiffCallback(this.accountList, newData);
             DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(postDiffCallback);
@@ -112,13 +113,20 @@ public class AccountsAdapter extends RecyclerView.Adapter<AccountsAdapter.ViewHo
     }
 
     public void removeAccount(int position) {
-        accountList.remove(position);
+        Account tmp = accountList.remove(position);
+        accountDeleteCommand.setAccount(tmp);
+        accountDeleteCommand.execute();
         notifyItemRemoved(position);
     }
 
     public void restoreAccount(Account account, int position) {
         accountList.add(position, account);
+        accountDeleteCommand.undo();
         notifyItemInserted(position);
+    }
+
+    public void setAccountDeleteCommand(AccountViewModel accountViewModel) {
+        accountDeleteCommand.setAccountViewModel(accountViewModel);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

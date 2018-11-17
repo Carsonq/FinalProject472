@@ -12,8 +12,11 @@
     <string name="expense_report">Expense Report</string>
     <string name="fields_cannot_be_empty">Please fill in all fields!</string>
     <string name="title_activity_new_auth">Add New Account</string>
-    <string name="title_activity_expense_report">Expense Category</string>
+    <string name="title_activity_expense_report">Expense Report</string>
     <string name="sp_filename">QUERY_DATA</string>
     <string name="wrong_password">You enter an incorrect password!</string>
     <string name="fingerprint_instructions">Place your fingertip on the Home button to verify your identity</string>
+    <string name="report_description">Check your expense report</string>
+    <string name="report_description_2">* Check out the transactions in the last 15 days by default</string>
+    <string name="account_management_description">Mange your bank account</string>
 </resources>

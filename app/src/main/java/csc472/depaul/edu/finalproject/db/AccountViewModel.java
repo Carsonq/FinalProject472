@@ -25,11 +25,11 @@ public class AccountViewModel extends AndroidViewModel {
         return accountDao.findAll();
     }
 
-//    void saveA(Account account) {
-//        executorService.execute(() -> postDao.save(post));
-//    }
-//
-//    void deletePost(Post post) {
-//        executorService.execute(() -> postDao.delete(post));
-//    }
+    public void saveAccount(Account account) {
+        executorService.execute(() -> accountDao.insertOnlySingleAccount(account));
+    }
+
+    public void deleteAccount(Account account) {
+        executorService.execute(() -> accountDao.deleteAccount(account));
+    }
 }

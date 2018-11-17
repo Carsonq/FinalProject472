@@ -56,6 +56,8 @@ public class NewAuthActivity extends AppCompatActivity {
         plaidLinkWebview.loadUrl(linkInitializationUrl.toString());
 
         plaidLinkWebview.setWebViewClient(new WebViewClient() {
+
+
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 // Parse the URL to determine if it's a special Plaid Link redirect or a request

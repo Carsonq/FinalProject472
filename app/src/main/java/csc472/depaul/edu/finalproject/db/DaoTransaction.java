@@ -17,7 +17,7 @@ public interface DaoTransaction {
     @Query("SELECT * FROM `Transaction`")
     List<Transaction> fetchAllTransactions();
 
-    @Query("SELECT * FROM `Transaction`")
+    @Query("SELECT * FROM `Transaction` ORDER BY transaction_date DESC")
     LiveData<List<Transaction>> findAll();
 
     @Query("SELECT transaction_category, SUM(transaction_amount) as category_amount FROM `Transaction` GROUP BY transaction_category")
