@@ -56,8 +56,6 @@ public class NewAuthActivity extends AppCompatActivity {
         plaidLinkWebview.loadUrl(linkInitializationUrl.toString());
 
         plaidLinkWebview.setWebViewClient(new WebViewClient() {
-
-
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 // Parse the URL to determine if it's a special Plaid Link redirect or a request
@@ -126,13 +124,15 @@ public class NewAuthActivity extends AppCompatActivity {
                         // and relevant API request IDs.
                         Log.d("User status in flow: ", linkData.get("status"));
                         // The requet ID keys may or may not exist depending on when the user exited
-                        // the Link flow.
-                        Log.d("Link request ID: ", linkData.get("link_request_id"));
-                        Log.d("API request ID: ", linkData.get("plaid_api_request_id"));
+//                        // the Link flow.
+//                        Log.d("Link request ID: ", linkData.get("link_request_id"));
+//                        Log.d("API request ID: ", linkData.get("plaid_api_request_id"));
 
                         // Reload Link in the Webview
                         // You will likely want to transition the view at this point.
-                        plaidLinkWebview.loadUrl(linkInitializationUrl.toString());
+                        Intent intent = new Intent(getActivity(), AccountManagementActivity.class);
+//                        intent.putExtra("investment_data", investment);
+                        getActivity().startActivity(intent);
                     } else if (action.equals("event")) {
                         // The event action is fired as the user moves through the Link flow
                         Log.d("Event name: ", linkData.get("event_name"));
@@ -214,4 +214,6 @@ public class NewAuthActivity extends AppCompatActivity {
     protected void onRestart() {
         super.onRestart();
     }
+
+
 }
