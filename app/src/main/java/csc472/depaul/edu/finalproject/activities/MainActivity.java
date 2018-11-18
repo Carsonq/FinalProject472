@@ -4,10 +4,12 @@ import android.Manifest;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -21,6 +23,7 @@ import java.util.Date;
 
 import csc472.depaul.edu.finalproject.models.DateRange;
 import csc472.depaul.edu.finalproject.R;
+import csc472.depaul.edu.finalproject.models.ScanThread;
 
 public class MainActivity extends AppCompatActivity {
     private final static float MIN_RATE = 0.001f;
@@ -35,6 +38,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // check pending image scan
+        String resUrl = getMainActivity().getString(R.string.sanner_result_url, getMainActivity().getString(R.string.sanner_apikey));
+        AsyncTask.execute(new ScanThread(resUrl, getMainActivity()));
+
         setContentView(R.layout.activity_main);
 
         requestInternetPermission();
@@ -48,11 +55,22 @@ public class MainActivity extends AppCompatActivity {
         if (expense_report != null) {
             expense_report.setOnClickListener(onClickExpenseReport);
         }
+
+        final CardView camera = findViewById(R.id.take_photo);
+        if (camera != null) {
+            camera.setOnClickListener(onClickTakePhoto);
+        }
+
+        final CardView receipt_report = findViewById(R.id.receipt_report);
+        if (receipt_report != null) {
+            receipt_report.setOnClickListener(onClickRecieptReport);
+        }
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+        myCalendar = Calendar.getInstance();
     }
 
     @Override
@@ -157,6 +175,33 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    private View.OnClickListener onClickRecieptReport = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Date e = myCalendar.getTime();
+            myCalendar.add(Calendar.DAY_OF_MONTH, -15);
+            Date s = myCalendar.getTime();
+            DateRange dr = new DateRange(s, e);
+
+            if (dr.isValid()) {
+                Intent intent = new Intent(getMainActivity(), ReceiptReportActivity.class);
+                intent.putExtra("date_range", dr);
+                getMainActivity().startActivity(intent);
+            } else {
+                Toast toast = Toast.makeText(getApplicationContext(), "The start date must be prior to the end date!", Toast.LENGTH_LONG);
+                toast.show();
+            }
+        }
+    };
+
+    private View.OnClickListener onClickTakePhoto = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(getMainActivity(), ReceiptActivity.class);
+            getMainActivity().startActivity(intent);
+        }
+    };
+
     //helper functions below
     private boolean validateEditTextField(int id) {
         boolean isValid = false;
@@ -188,12 +233,10 @@ public class MainActivity extends AppCompatActivity {
         return sText;
     }
 
-    private void requestInternetPermission()
-    {
+    private void requestInternetPermission() {
         int internetPermission = ActivityCompat.checkSelfPermission(getMainActivity(), Manifest.permission.INTERNET);
 
-        if (internetPermission != PackageManager.PERMISSION_GRANTED)
-        {
+        if (internetPermission != PackageManager.PERMISSION_GRANTED) {
             int REQUEST_INTERNET = 1;
 
             String[] PERMISSIONS_INTERNET = {

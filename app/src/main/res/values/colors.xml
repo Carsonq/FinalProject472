@@ -7,5 +7,6 @@
     <color name="bgRowBackground">#FA315B</color>
     <color name="itemName">#535353</color>
     <color name="description">#a9a9a9</color>
+    <color name="acceptButton">#32CD32</color>
 
 </resources>

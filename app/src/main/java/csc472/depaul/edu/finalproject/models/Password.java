@@ -75,7 +75,7 @@ public class Password {
     private void saveNewPassword(Context context, final String sText) throws Exception {
         try {
             File dataDir = context.getFilesDir();
-            File dir = new File(dataDir.getAbsolutePath() + "/csc472_finalproject");
+            File dir = new File(dataDir.getAbsolutePath() + "/p");
             dir.mkdirs();
 
             File file = new File(dir + "/passwords.txt");
@@ -84,6 +84,8 @@ public class Password {
             FileOutputStream outputFile = new FileOutputStream(file);
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputFile);
             outputStreamWriter.append(sText);
+            outputStreamWriter.flush();
+            outputFile.flush();
             outputStreamWriter.close();
             outputFile.close();
         } catch (Exception e) {

@@ -3,6 +3,10 @@
     package="csc472.depaul.edu.finalproject">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera" />
+
     <uses-permission android:name="android.permission.USE_FINGERPRINT" />
 
     <uses-feature
@@ -16,7 +20,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".activities.MainActivity"></activity>
+        <activity android:name=".activities.MainActivity">
+
+        </activity>
         <activity
             android:name=".activities.ExpenseReportActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -26,8 +32,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:noHistory="true">
+            android:noHistory="true"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -35,7 +41,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.FingerAuthActivity" />
-        <activity android:name=".activities.AccountManagementActivity"></activity>
+        <activity android:name=".activities.AccountManagementActivity" />
+        <activity android:name=".activities.ReceiptActivity" />
+        <activity android:name=".activities.ReceiptReportActivity"></activity>
     </application>
 
 </manifest>

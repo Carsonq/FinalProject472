@@ -29,6 +29,16 @@ public class DateRange implements Parcelable {
         return startDate;
     }
 
+    public String getStartDateDashFormat() {
+        String[] mdy = startDate.split("/");
+        return mdy[2]+'-'+mdy[0]+'-'+mdy[1];
+    }
+
+    public String getEndDateDashFormat() {
+        String[] mdy = endDate.split("/");
+        return mdy[2]+'-'+mdy[0]+'-'+mdy[1];
+    }
+
     public String getEndDate() {
         return endDate;
     }

@@ -16,7 +16,7 @@ public interface DaoAccess {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertOnlySingleAccount(Account account);
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertMultipleAccounts(List<Account> accountList);
 
     @Query("SELECT * FROM Account WHERE accountId =:accountId")

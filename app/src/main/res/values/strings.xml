@@ -4,6 +4,10 @@
     <string name="public_key">e8dfd608876767a01fe2536869c700</string>
     <string name="client_id">5bc62c7244fc260011e05297</string>
     <string name="secret">1db1964360473b2c95f6c2dc730037</string>
+    <string name="sanner_apikey">yPXYphM9o8uKvDuVjEpZT3S3hSHoR5wtn9jrM5IYEQb8Qjr6wq1fTv95QpEWvGkh</string>
+    <string name="sanner_url">https://api.tabscanner.com/%1$s/process</string>
+    <string name="sanner_result_url">https://api.tabscanner.com/%1$s/result</string>
+
     <string name="start_date">Start Date</string>
     <string name="end_date">End Date</string>
     <string name="add_account">Add Account</string>
@@ -13,10 +17,14 @@
     <string name="fields_cannot_be_empty">Please fill in all fields!</string>
     <string name="title_activity_new_auth">Add New Account</string>
     <string name="title_activity_expense_report">Expense Report</string>
+    <string name="title_activity_receipt_report">Receipt Report</string>
     <string name="sp_filename">QUERY_DATA</string>
+    <string name="sp_pending_token_filename">pending_tokens</string>
     <string name="wrong_password">You enter an incorrect password!</string>
     <string name="fingerprint_instructions">Place your fingertip on the Home button to verify your identity</string>
     <string name="report_description">Check your expense report</string>
+    <string name="receipt_records_description">Check your receipt report</string>
+    <string name="receipt_description">Take a picture of your receipt</string>
     <string name="report_description_2">* Check out the transactions in the last 15 days by default</string>
     <string name="account_management_description">Mange your bank account</string>
 </resources>

@@ -43,6 +43,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import csc472.depaul.edu.finalproject.db.ReceiptDate;
 import csc472.depaul.edu.finalproject.db.TransactionDatabase;
 import csc472.depaul.edu.finalproject.db.TransactionViewModel;
 import csc472.depaul.edu.finalproject.models.DateRange;
@@ -201,7 +202,7 @@ public class ExpenseReportActivity extends AppCompatActivity implements ILoadDat
                     colorIdx = colors.length - 1;
                 }
                 float percentage = Float.parseFloat(res.get(k)) / total_amount;
-                pieData.add(new SliceValue(percentage).setColor(colors[colorIdx]).setLabel(k + " : " + df.format(percentage*100) + "%"));
+                pieData.add(new SliceValue(percentage).setColor(colors[colorIdx]).setLabel(k + " : " + df.format(percentage * 100) + "%"));
                 colorIdx--;
             }
 
@@ -212,6 +213,11 @@ public class ExpenseReportActivity extends AppCompatActivity implements ILoadDat
         }
 
         datePickerSetup();
+    }
+
+    @Override
+    public void loadData(List<ReceiptDate> receiptDates) {
+
     }
 
     private void datePickerSetup() {
