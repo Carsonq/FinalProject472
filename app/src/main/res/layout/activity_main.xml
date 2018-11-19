@@ -136,6 +136,7 @@
                         android:layout_width="64dp"
                         android:layout_height="64dp"
                         android:background="@drawable/cerclebackground"
+                        android:layout_marginTop="5dp"
                         android:padding="15dp"
                         android:src="@drawable/ic_add_a_photo_black_24dp" />
 
@@ -181,6 +182,7 @@
                         android:layout_width="64dp"
                         android:layout_height="64dp"
                         android:background="@drawable/cerclebackground"
+                        android:layout_marginTop="5dp"
                         android:padding="15dp"
                         android:src="@drawable/ic_insert_chart_white_24dp" />
 
@@ -209,86 +211,4 @@
         </LinearLayout>
     </LinearLayout>
 
-
-    <!--<LinearLayout-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_gravity="center"-->
-    <!--android:layout_marginTop="20sp"-->
-    <!--android:orientation="horizontal">-->
-    <!--<Button-->
-    <!--android:id="@+id/add_account"-->
-    <!--android:text="@string/add_account"-->
-    <!--android:textSize="24sp"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_gravity="center"-->
-    <!--android:layout_marginTop="20sp"-->
-    <!--/>-->
-    <!--</LinearLayout>-->
-
-    <!--<LinearLayout-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_gravity="center"-->
-    <!--android:orientation="horizontal">-->
-    <!--<TextView-->
-    <!--android:id="@+id/start_date_label"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="@string/start_date"-->
-    <!--android:textSize="24sp"-->
-    <!--android:textStyle="bold"-->
-    <!--/>-->
-
-    <!--<EditText-->
-    <!--android:id="@+id/start_date"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_weight="1"-->
-    <!--android:ems="10"-->
-    <!--android:focusable="false"-->
-    <!--android:inputType="date" />-->
-    <!--</LinearLayout>-->
-
-    <!--<LinearLayout-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_gravity="center"-->
-    <!--android:orientation="horizontal">-->
-    <!--<TextView-->
-    <!--android:id="@+id/end_date_label"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="@string/end_date"-->
-    <!--android:textSize="24sp"-->
-    <!--android:textStyle="bold"-->
-    <!--/>-->
-
-    <!--<EditText-->
-    <!--android:id="@+id/end_date"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_weight="1"-->
-    <!--android:ems="10"-->
-    <!--android:focusable="false"-->
-    <!--android:inputType="date" />-->
-    <!--</LinearLayout>-->
-
-    <!--<LinearLayout-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_gravity="center"-->
-    <!--android:layout_marginTop="20sp"-->
-    <!--android:orientation="horizontal">-->
-    <!--<Button-->
-    <!--android:id="@+id/expense_report"-->
-    <!--android:text="@string/expense_report"-->
-    <!--android:textSize="24sp"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_gravity="center"-->
-    <!--android:layout_marginTop="20sp"-->
-    <!--/>-->
-    <!--</LinearLayout>-->
 </LinearLayout>

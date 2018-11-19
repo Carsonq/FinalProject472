@@ -40,7 +40,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.FingerAuthActivity" />
         <activity android:name=".activities.AccountManagementActivity" />
         <activity android:name=".activities.ReceiptActivity" />
         <activity android:name=".activities.ReceiptReportActivity"></activity>

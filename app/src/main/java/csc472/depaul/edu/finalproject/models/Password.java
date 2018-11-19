@@ -30,7 +30,7 @@ public class Password {
         } else {
             try {
                 File dataDir = context.getFilesDir();
-                File file = new File(dataDir.getAbsolutePath() + "/csc472_finalproject/passwords.txt");
+                File file = new File(dataDir.getAbsolutePath() + "/p/passwords.txt");
 
                 FileInputStream inputFile = new FileInputStream(file);
                 InputStreamReader inputStreamReader = new InputStreamReader(inputFile);

@@ -27,4 +27,10 @@
     <string name="receipt_description">Take a picture of your receipt</string>
     <string name="report_description_2">* Check out the transactions in the last 15 days by default</string>
     <string name="account_management_description">Mange your bank account</string>
+    <string name="fingerprint_hint">Place your finger on the device home button to verify your identity</string>
+    <string name="fingerprint_title">Sign in</string>
+    <string name="dialog_use_fing">Do you want to use Fingerprint to log in?</string>
+    <string name="dialog_title">Enable Fingerprint</string>
+    <string name="finger_sp_filename">enable_fingerprint</string>
+
 </resources>
