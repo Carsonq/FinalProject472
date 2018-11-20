@@ -5,13 +5,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -22,7 +25,10 @@ import android.widget.ProgressBar;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import csc472.depaul.edu.finalproject.R;
 import csc472.depaul.edu.finalproject.models.ScanThread;
@@ -33,6 +39,8 @@ public class ReceiptActivity extends AppCompatActivity {
     String imageFileName = null;
     ImageView imageView;
     private final int CAPTURE_PHOTO = 104;
+    File imageFile = null;
+    Uri photoURI = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,10 +106,8 @@ public class ReceiptActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case CAPTURE_PHOTO:
-                    Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-                    imageView.setImageBitmap(bitmap);
-//                    imageView.setImageDrawable(getResources().getDrawable(R.drawable.test_receipt)); //test image
-                    imageFileName = savePhoto(bitmap);
+                    Bitmap myBitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
+                    imageView.setImageBitmap(myBitmap);
                     break;
                 default:
                     break;
@@ -131,7 +137,41 @@ public class ReceiptActivity extends AppCompatActivity {
 
     private void invokeCamera() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(intent, CAPTURE_PHOTO);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            try {
+                imageFile = createImageFile();
+
+                if (imageFile != null) {
+                    photoURI = FileProvider.getUriForFile(this,
+                            "csc472.depaul.edu.finalproject.fileprovider",
+                            imageFile);
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                    startActivityForResult(intent, CAPTURE_PHOTO);
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+
+//        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//        startActivityForResult(intent, CAPTURE_PHOTO);
+    }
+
+    private File createImageFile() throws IOException {
+        File dataDir = getReceiptActivity().getFilesDir();
+        File dir = new File(dataDir.getAbsolutePath() + "/receipts");
+        dir.mkdirs();
+
+        String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+        imageFileName = dir + "/" + "receipt_capture_" + timeStamp + ".jpg";
+
+        File image = File.createTempFile(
+                "receipt_capture_" + timeStamp,  /* prefix */
+                ".jpg",         /* suffix */
+                dir      /* directory */
+        );
+
+        return image;
     }
 
     private void requestCameraPermission() {
@@ -158,28 +198,22 @@ public class ReceiptActivity extends AppCompatActivity {
         }
     }
 
-    private String savePhoto(Bitmap bitmap) {
+    private void savePhoto(Bitmap bitmap) {
         File dataDir = getReceiptActivity().getFilesDir();
         File dir = new File(dataDir.getAbsolutePath() + "/receipts");
         dir.mkdirs();
-        int idx = 0;
-        String fileName = "receipt_capture" + Integer.toString(idx) + ".jpg";
-        File file = new File(dir + "/" + fileName);
-        while (file.exists() && idx < 1000) {
-            idx++;
-            fileName = "receipt_capture" + Integer.toString(idx) + ".jpg";
-            file = new File(dir + "/" + fileName);
-        }
 
+        String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+        imageFileName = dir + "/" + "receipt_capture_" + timeStamp + ".jpg";
+
+        File file = new File(imageFileName);
         try {
             FileOutputStream outputFile = new FileOutputStream(file);
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputFile);
             outputFile.flush();
             outputFile.close();
-            return dir + "/" + fileName;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
     }
 }
