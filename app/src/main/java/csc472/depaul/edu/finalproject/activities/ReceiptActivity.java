@@ -87,8 +87,9 @@ public class ReceiptActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             startScan();
-            Intent intent = new Intent(getReceiptActivity(), MainActivity.class);
-            getReceiptActivity().startActivity(intent);
+            //back to main activity
+            ReceiptActivity.super.onBackPressed();
+            finish();
         }
     };
 
@@ -113,6 +114,7 @@ public class ReceiptActivity extends AppCompatActivity {
                     break;
             }
         } else if (resultCode == RESULT_CANCELED) {
+            deleteCurrentImage();
             Drawable pic = imageView.getDrawable();
             if (pic == null) {
                 Intent intent = new Intent(getReceiptActivity(), MainActivity.class);
@@ -128,7 +130,7 @@ public class ReceiptActivity extends AppCompatActivity {
 
     public void takePhoto() {
         int cameraPermission = ActivityCompat.checkSelfPermission(getReceiptActivity(), Manifest.permission.CAMERA);
-        if (cameraPermission != PackageManager.PERMISSION_GRANTED) {
+        if (cameraPermission == PackageManager.PERMISSION_GRANTED) {
             invokeCamera();
         } else {
             requestCameraPermission();
@@ -163,13 +165,15 @@ public class ReceiptActivity extends AppCompatActivity {
         dir.mkdirs();
 
         String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
-        imageFileName = dir + "/" + "receipt_capture_" + timeStamp + ".jpg";
+//        imageFileName = dir + "/" + "receipt_capture_" + timeStamp + ".jpg";
 
         File image = File.createTempFile(
                 "receipt_capture_" + timeStamp,  /* prefix */
                 ".jpg",         /* suffix */
                 dir      /* directory */
         );
+
+        imageFileName = image.getAbsolutePath();
 
         return image;
     }
@@ -215,5 +219,11 @@ public class ReceiptActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        ReceiptActivity.super.onBackPressed();
+        finish();
     }
 }

@@ -141,5 +141,9 @@ public class NewAuthActivity extends AppCompatActivity {
         super.onRestart();
     }
 
-
+    @Override
+    public void onBackPressed() {
+        NewAuthActivity.super.onBackPressed();
+        finish();
+    }
 }

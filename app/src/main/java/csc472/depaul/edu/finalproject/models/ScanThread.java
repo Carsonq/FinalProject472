@@ -13,7 +13,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
@@ -52,8 +54,9 @@ public class ScanThread implements Runnable {
             resumeScanToken();
         } else {
             try {
-//                String res = HttpUtils.postFile(imageFileName, postUrl);
-                String res = "{\"message\":\"WARNING: Image uploaded successfully, but did not meet the recommended dimension of 720x1280 (WxH). Please follow the requirement to get the most accurate result\",\"status\":\"success\",\"status_code\":2,\"token\":\"lGpQaTRUfhioU2Xd\",\"success\":true,\"code\":300}";
+                String res = HttpUtils.postFile(imageFileName, postUrl);
+//                String res = "{\"message\":\"WARNING: Image uploaded successfully, but did not meet the recommended dimension of 720x1280 (WxH). Please follow the requirement to get the most accurate result\",\"status\":\"success\",\"status_code\":2,\"token\":\"lGpQaTRUfhioU2Xd\",\"success\":true,\"code\":300}";
+//                String res = "{\"message\":\"WARNING: Image uploaded successfully, but did not meet the recommended dimension of 720x1280 (WxH). Please follow the requirement to get the most accurate result\",\"status\":\"success\",\"status_code\":2,\"token\":\"5STTvmN7fFybpZHY\",\"success\":true,\"code\":300}";
 
                 JSONObject resJsonObj = new JSONObject(res);
                 boolean requestStatus = resJsonObj.getBoolean("success");
@@ -124,6 +127,7 @@ public class ScanThread implements Runnable {
                 saveScanToken(token);
                 receiptRes = HttpUtils.getRequest(resUrl);
                 resJsonObj = new JSONObject(receiptRes);
+                Thread.sleep(5000);
             }
 
             removeScanToken(token);
@@ -135,7 +139,7 @@ public class ScanThread implements Runnable {
                 Double receiptTax = resJsonObj.getJSONObject("result").getDouble("tax");
 
                 Receipt r = new Receipt();
-                r.setReceiptDate(receiptDate);
+                r.setReceiptDate(!receiptDate.equals("") ? receiptDate : new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
                 r.setReceiptTotal(receiptTotal);
                 r.setReceiptSubtotal(receiptSubtotal);
                 r.setReceiptTax(receiptTax);

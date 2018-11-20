@@ -101,8 +101,8 @@ public class AccountManagementActivity extends AppCompatActivity implements Recy
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(getAccountManagementActivity(), MainActivity.class);
-        getAccountManagementActivity().startActivity(intent);
+        AccountManagementActivity.super.onBackPressed();
+        finish();
     }
 
     private MenuItem.OnMenuItemClickListener onClickAddAccount = new MenuItem.OnMenuItemClickListener() {

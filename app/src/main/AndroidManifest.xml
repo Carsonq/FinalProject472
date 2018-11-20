@@ -36,10 +36,12 @@
         </activity>
         <activity
             android:name=".activities.ExpenseReportActivity"
+            android:noHistory="true"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.NewAuthActivity"
             android:label="@string/title_activity_new_auth"
+            android:noHistory="true"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.LoginActivity"
@@ -51,9 +53,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.AccountManagementActivity" />
+        <activity android:name=".activities.AccountManagementActivity"
+            android:noHistory="true"/>
         <activity android:name=".activities.ReceiptActivity" />
-        <activity android:name=".activities.ReceiptReportActivity"></activity>
+        <activity android:name=".activities.ReceiptReportActivity"
+            android:noHistory="true"></activity>
     </application>
 
 </manifest>

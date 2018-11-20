@@ -2,8 +2,10 @@ package csc472.depaul.edu.finalproject.activities;
 
 import android.app.DatePickerDialog;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -259,5 +261,11 @@ public class ReceiptReportActivity extends AppCompatActivity implements ILoadDat
                 toast.show();
             }
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        ReceiptReportActivity.super.onBackPressed();
+        finish();
     }
 }

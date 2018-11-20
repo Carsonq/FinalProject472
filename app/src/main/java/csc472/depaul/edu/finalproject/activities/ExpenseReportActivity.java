@@ -271,4 +271,10 @@ public class ExpenseReportActivity extends AppCompatActivity implements ILoadDat
             }
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        ExpenseReportActivity.super.onBackPressed();
+        finish();
+    }
 }
