@@ -99,6 +99,12 @@ public class AccountManagementActivity extends AppCompatActivity implements Recy
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getAccountManagementActivity(), MainActivity.class);
+        getAccountManagementActivity().startActivity(intent);
+    }
+
     private MenuItem.OnMenuItemClickListener onClickAddAccount = new MenuItem.OnMenuItemClickListener() {
         @Override
         public boolean onMenuItemClick(MenuItem item) {

@@ -4,7 +4,6 @@ import android.Manifest;
 import android.app.KeyguardManager;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.Build;
@@ -51,6 +50,7 @@ public class LoginActivity extends AppCompatActivity {
     private FingerprintManager.CryptoObject cryptoObject;
     private FingerprintManager fingerprintManager;
     private KeyguardManager keyguardManager;
+    private AlertDialog alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,7 +104,7 @@ public class LoginActivity extends AppCompatActivity {
                                 login.setOnClickListener(onClickLogin);
                             }
                         });
-                        AlertDialog alertDialog = builder.create();
+                        alertDialog = builder.create();
                         alertDialog.show();
                     }
                 }
@@ -137,6 +137,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        alertDialog.dismiss();
     }
 
     @Override
@@ -195,7 +196,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
 
-        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog = alertDialogBuilder.create();
         alertDialog.show();
     }
 

@@ -4,7 +4,6 @@ import android.arch.persistence.room.RoomDatabase;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import csc472.depaul.edu.finalproject.models.ILoadDataObserver;

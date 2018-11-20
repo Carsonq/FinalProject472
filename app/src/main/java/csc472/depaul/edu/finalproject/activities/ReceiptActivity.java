@@ -9,6 +9,7 @@ import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.os.AsyncTask;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -98,8 +99,8 @@ public class ReceiptActivity extends AppCompatActivity {
             switch (requestCode) {
                 case CAPTURE_PHOTO:
                     Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-//                    imageView.setImageBitmap(bitmap);
-                    imageView.setImageDrawable(getResources().getDrawable(R.drawable.test_receipt)); //test image
+                    imageView.setImageBitmap(bitmap);
+//                    imageView.setImageDrawable(getResources().getDrawable(R.drawable.test_receipt)); //test image
                     imageFileName = savePhoto(bitmap);
                     break;
                 default:
@@ -120,26 +121,40 @@ public class ReceiptActivity extends AppCompatActivity {
     }
 
     public void takePhoto() {
-        requestCameraPermission();
+        int cameraPermission = ActivityCompat.checkSelfPermission(getReceiptActivity(), Manifest.permission.CAMERA);
+        if (cameraPermission != PackageManager.PERMISSION_GRANTED) {
+            invokeCamera();
+        } else {
+            requestCameraPermission();
+        }
+    }
 
+    private void invokeCamera() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent, CAPTURE_PHOTO);
     }
 
     private void requestCameraPermission() {
-        int cameraPermission = ActivityCompat.checkSelfPermission(getReceiptActivity(), Manifest.permission.CAMERA);
-        if (cameraPermission != PackageManager.PERMISSION_GRANTED) {
-            int REQUEST_CAMERA = 1;
+        int REQUEST_CAMERA = 1;
 
-            String[] PERMISSIONS_CAMERA = {
-                    Manifest.permission.CAMERA
-            };
+        String[] PERMISSIONS_CAMERA = {
+                Manifest.permission.CAMERA
+        };
 
-            ActivityCompat.requestPermissions(
-                    getReceiptActivity(),
-                    PERMISSIONS_CAMERA,
-                    REQUEST_CAMERA
-            );
+        ActivityCompat.requestPermissions(
+                getReceiptActivity(),
+                PERMISSIONS_CAMERA,
+                REQUEST_CAMERA
+        );
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 1) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                invokeCamera();
+            }
         }
     }
 
@@ -158,7 +173,7 @@ public class ReceiptActivity extends AppCompatActivity {
 
         try {
             FileOutputStream outputFile = new FileOutputStream(file);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 90, outputFile);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputFile);
             outputFile.flush();
             outputFile.close();
             return dir + "/" + fileName;

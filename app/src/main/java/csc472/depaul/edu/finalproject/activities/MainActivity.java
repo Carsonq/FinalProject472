@@ -1,19 +1,16 @@
 package csc472.depaul.edu.finalproject.activities;
 
 import android.Manifest;
-import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.Window;
-import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -26,11 +23,6 @@ import csc472.depaul.edu.finalproject.R;
 import csc472.depaul.edu.finalproject.models.ScanThread;
 
 public class MainActivity extends AppCompatActivity {
-    private final static float MIN_RATE = 0.001f;
-    private static String NAME_HOLDER = "NAME_HOLDER";
-    private static String INITIAL_HOLDER = "INITIAL_HOLDER";
-    private static String RATE_HOLDER = "RATE_HOLDER";
-
     Calendar myCalendar = Calendar.getInstance();
     SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 
@@ -99,49 +91,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void onSaveInstanceState(Bundle savedInstanceState) {
-//        if (savedInstanceState != null)
-//        {
-//            String sName = getEditViewText(R.id.name);
-//            if (!sName.equals("")) {
-//                savedInstanceState.putString(NAME_HOLDER, sName);
-//            }
-//
-//            String sInitial = getEditViewText(R.id.investment);
-//            if (!sInitial.equals("")) {
-//                savedInstanceState.putString(INITIAL_HOLDER, sInitial);
-//            }
-//
-//            String sRate = getEditViewText(R.id.rate);
-//            if (!sRate.equals("")) {
-//                savedInstanceState.putString(RATE_HOLDER, sRate);
-//            }
-//        }
-
         super.onSaveInstanceState(savedInstanceState);
     }
 
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-
-//        if (savedInstanceState != null) {
-//            EditText name = findViewById(R.id.name);
-//            if (name != null && !name.getText().toString().equals(""))
-//            {
-//                name.setText(savedInstanceState.getString(NAME_HOLDER));
-//            }
-//
-//            EditText investment = findViewById(R.id.investment);
-//            if (investment != null & !investment.getText().toString().equals(""))
-//            {
-//                investment.setText(savedInstanceState.getString(INITIAL_HOLDER));
-//            }
-//
-//            EditText rate = findViewById(R.id.rate);
-//            if (rate != null && !rate.getText().toString().equals(""))
-//            {
-//                rate.setText(savedInstanceState.getString(RATE_HOLDER));
-//            }
-//        }
     }
 
     private final MainActivity getMainActivity() {
@@ -202,7 +156,6 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    //helper functions below
     private boolean validateEditTextField(int id) {
         boolean isValid = false;
 
@@ -249,5 +202,19 @@ public class MainActivity extends AppCompatActivity {
                     REQUEST_INTERNET
             );
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setTitle("Really Exit?")
+                .setMessage("Are you sure you want to exit?")
+                .setNegativeButton(android.R.string.no, null)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        MainActivity.super.onBackPressed();
+                    }
+                }).create().show();
     }
 }

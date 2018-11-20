@@ -1,10 +1,8 @@
 package csc472.depaul.edu.finalproject.activities;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,42 +17,29 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.github.mikephil.charting.utils.ColorTemplate;
-
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 import csc472.depaul.edu.finalproject.R;
 import csc472.depaul.edu.finalproject.db.DataProcessor;
 import csc472.depaul.edu.finalproject.db.ReceiptDatabase;
 import csc472.depaul.edu.finalproject.db.ReceiptDate;
 import csc472.depaul.edu.finalproject.db.ReceiptViewModel;
-import csc472.depaul.edu.finalproject.db.TransactionDatabase;
-import csc472.depaul.edu.finalproject.db.TransactionViewModel;
 import csc472.depaul.edu.finalproject.models.DateRange;
 import csc472.depaul.edu.finalproject.models.ILoadDataObserver;
 import csc472.depaul.edu.finalproject.models.ReceiptLoadViewAdapter;
-import csc472.depaul.edu.finalproject.models.TransactionLoadViewAdapter;
-import csc472.depaul.edu.finalproject.models.Transactions;
 import lecho.lib.hellocharts.model.Axis;
 import lecho.lib.hellocharts.model.Column;
 import lecho.lib.hellocharts.model.ColumnChartData;
 import lecho.lib.hellocharts.model.ComboLineColumnChartData;
 import lecho.lib.hellocharts.model.Line;
 import lecho.lib.hellocharts.model.LineChartData;
-import lecho.lib.hellocharts.model.PieChartData;
 import lecho.lib.hellocharts.model.PointValue;
-import lecho.lib.hellocharts.model.SliceValue;
 import lecho.lib.hellocharts.model.SubcolumnValue;
-import lecho.lib.hellocharts.model.Viewport;
 import lecho.lib.hellocharts.util.ChartUtils;
 import lecho.lib.hellocharts.view.ComboLineColumnChartView;
-import lecho.lib.hellocharts.view.PieChartView;
 
 public class ReceiptReportActivity extends AppCompatActivity implements ILoadDataObserver {
 
@@ -138,65 +123,67 @@ public class ReceiptReportActivity extends AppCompatActivity implements ILoadDat
 
     @Override
     public void loadData(List<ReceiptDate> receiptDates) {
-        ComboLineColumnChartView comboLineColumnChartView = findViewById(R.id.receipt_chart);
-        ComboLineColumnChartData comboLineColumnChartData = new ComboLineColumnChartData();
+        if (receiptDates.size() != 0) {
+            ComboLineColumnChartView comboLineColumnChartView = findViewById(R.id.receipt_chart);
+            ComboLineColumnChartData comboLineColumnChartData = new ComboLineColumnChartData();
 
-        float columns_high = 0.0f;
-        for (ReceiptDate r : receiptDates) {
-            if (r.getDayTotal() > columns_high) {
-                columns_high = (float) r.getDayTotal();
-            }
-        }
-
-        columns_high = columns_high * 1.5f;
-
-        List<Column> columns = new ArrayList<>();
-        List<SubcolumnValue> subcolumnValues;
-        List<Line> lines = new ArrayList<>();
-        List<PointValue> lineValues = new ArrayList<>();
-
-        int[] colors = colorPick();
-        int colorIdx = colors.length - 1;
-        for (int i = 0; i < receiptDates.size(); i++) {
-            if (colorIdx < 0) {
-                colorIdx = colors.length - 1;
+            float columns_high = 0.0f;
+            for (ReceiptDate r : receiptDates) {
+                if (r.getDayTotal() > columns_high) {
+                    columns_high = (float) r.getDayTotal();
+                }
             }
 
-            ReceiptDate receiptDate = receiptDates.get(i);
-            subcolumnValues = new ArrayList<>();
-            subcolumnValues.add(new SubcolumnValue(
-                    (float) receiptDate.getDayTotal(),
-                    colors[colorIdx]));
-            columns.add(new Column(subcolumnValues));
+            columns_high = columns_high * 1.5f;
 
-            lineValues.add(new PointValue(i,
-                    ((float) receiptDate.getDayTotal())));
+            List<Column> columns = new ArrayList<>();
+            List<SubcolumnValue> subcolumnValues;
+            List<Line> lines = new ArrayList<>();
+            List<PointValue> lineValues = new ArrayList<>();
 
-            colorIdx--;
+            int[] colors = colorPick();
+            int colorIdx = colors.length - 1;
+            for (int i = 0; i < receiptDates.size(); i++) {
+                if (colorIdx < 0) {
+                    colorIdx = colors.length - 1;
+                }
+
+                ReceiptDate receiptDate = receiptDates.get(i);
+                subcolumnValues = new ArrayList<>();
+                subcolumnValues.add(new SubcolumnValue(
+                        (float) receiptDate.getDayTotal(),
+                        colors[colorIdx]));
+                columns.add(new Column(subcolumnValues));
+
+                lineValues.add(new PointValue(i,
+                        ((float) receiptDate.getDayTotal())));
+
+                colorIdx--;
+            }
+
+            Line line = new Line(lineValues);
+            line.setHasLabels(true);
+            line.setPointRadius(3);
+            line.setHasLines(true);
+            lines.add(line);
+
+            comboLineColumnChartData.setColumnChartData(new ColumnChartData(columns));
+            comboLineColumnChartData.setLineChartData(new LineChartData(lines));
+
+
+            Axis axisX = new Axis();
+            Axis axisY = Axis
+                    .generateAxisFromRange(0, columns_high, columns_high / 10)
+                    .setMaxLabelChars(6)
+                    .setTextColor(Color.GRAY)
+                    .setHasLines(true);
+            axisX.setName("Date: " + receiptDates.get(0).getReceiptDate() + " ~ " + receiptDates.get(receiptDates.size() - 1).getReceiptDate());
+            axisY.setName("Cost");
+            comboLineColumnChartData.setAxisXBottom(axisX);
+            comboLineColumnChartData.setAxisYLeft(axisY);
+
+            comboLineColumnChartView.setComboLineColumnChartData(comboLineColumnChartData);
         }
-
-        Line line = new Line(lineValues);
-        line.setHasLabels(true);
-        line.setPointRadius(3);
-        line.setHasLines(true);
-        lines.add(line);
-
-        comboLineColumnChartData.setColumnChartData(new ColumnChartData(columns));
-        comboLineColumnChartData.setLineChartData(new LineChartData(lines));
-
-
-        Axis axisX = new Axis();
-        Axis axisY = Axis
-                .generateAxisFromRange(0, columns_high, columns_high / 10)
-                .setMaxLabelChars(6)
-                .setTextColor(Color.GRAY)
-                .setHasLines(true);
-        axisX.setName("Date: " + receiptDates.get(0).getReceiptDate() + " ~ " + receiptDates.get(receiptDates.size()-1).getReceiptDate());
-        axisY.setName("Cost");
-        comboLineColumnChartData.setAxisXBottom(axisX);
-        comboLineColumnChartData.setAxisYLeft(axisY);
-
-        comboLineColumnChartView.setComboLineColumnChartData(comboLineColumnChartData);
 
         datePickerSetup();
     }

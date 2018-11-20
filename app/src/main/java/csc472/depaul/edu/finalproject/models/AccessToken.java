@@ -15,39 +15,8 @@ import retrofit2.Response;
 
 
 public class AccessToken extends AsyncTask<Object, Void, Void> {
-    /**
-     * @param0 the mode
-     * @param1 the client_id
-     * @param2 the secret
-     * @param3 the public_token
-     * @param4 the db
-     */
     @Override
     protected Void doInBackground(Object... params) {
-
-//        String url = "https://" + params[0].toString() + ".plaid.com/item/public_token/exchange";
-//        JSONObject data = new JSONObject();
-//        try {
-//            data.put("client_id", params[1].toString());
-//            data.put("secret", params[2].toString());
-//            data.put("public_token", params[3].toString());
-//
-//            String accessTokenInfo = HttpUtils.submitPostData(url, data.toString());
-//            JSONObject res = new JSONObject(accessTokenInfo);
-//            String ttt = res.get("access_token").toString();
-//            String xxx = res.get("item_id").toString();
-//
-//
-//            if (!accessToken.equals("-1") || !accessToken.startsWith("err")) {
-//
-//                Account acc = new Account();
-//                acc.setPublicToken(accessToken);
-//                DataProcessor.addAccount((AccountDatabase) params[4], acc);
-//            }
-//        } catch (Exception ex) {
-//            System.out.println(ex);
-//        }
-
         try {
             HashMap<String, String> linkData = (HashMap<String, String>)params[3];
 

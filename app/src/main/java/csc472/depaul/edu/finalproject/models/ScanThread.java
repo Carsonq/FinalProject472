@@ -52,7 +52,7 @@ public class ScanThread implements Runnable {
             resumeScanToken();
         } else {
             try {
-//            String res = HttpUtils.postFile(imageFileName, postUrl);
+//                String res = HttpUtils.postFile(imageFileName, postUrl);
                 String res = "{\"message\":\"WARNING: Image uploaded successfully, but did not meet the recommended dimension of 720x1280 (WxH). Please follow the requirement to get the most accurate result\",\"status\":\"success\",\"status_code\":2,\"token\":\"lGpQaTRUfhioU2Xd\",\"success\":true,\"code\":300}";
 
                 JSONObject resJsonObj = new JSONObject(res);
@@ -117,8 +117,8 @@ public class ScanThread implements Runnable {
     private void getScanResult(String resUrl, String token) {
         resUrl = resUrl + '/' + token;
         try {
-//            String receiptRes = HttpUtils.getRequest(resUrl);
-            String receiptRes = "{\"message\":\"SUCCESS: Result available\",\"status\":\"pending\",\"status_code\":3,\"type\":0,\"result\":{\"establishment\":\"Cos\",\"date\":\"2014-01-25 10:36:00\",\"total\":\"28.11\",\"url\":\"\",\"phoneNumber\":\"323-603-0004\",\"paymentMethod\":\"VISA\",\"address\":\"\",\"cash\":\"0.00\",\"change\":\"0.00\",\"validatedTotal\":true,\"subTotal\":\"26.26\",\"validatedSubTotal\":false,\"tax\":\"1.85\",\"taxes\":[0.1,1.75],\"discount\":\"0.00\",\"discounts\":[],\"lineItems\":[{\"qty\":1,\"desc\":\"Gothiing C9 Aniivevea\",\"price\":\"0.00\",\"lineTotal\":\"14.99\"}]},\"success\":true,\"code\":202}";
+            String receiptRes = HttpUtils.getRequest(resUrl);
+//            String receiptRes = "{\"message\":\"SUCCESS: Result available\",\"status\":\"pending\",\"status_code\":3,\"type\":0,\"result\":{\"establishment\":\"Cos\",\"date\":\"2014-01-25 10:36:00\",\"total\":\"28.11\",\"url\":\"\",\"phoneNumber\":\"323-603-0004\",\"paymentMethod\":\"VISA\",\"address\":\"\",\"cash\":\"0.00\",\"change\":\"0.00\",\"validatedTotal\":true,\"subTotal\":\"26.26\",\"validatedSubTotal\":false,\"tax\":\"1.85\",\"taxes\":[0.1,1.75],\"discount\":\"0.00\",\"discounts\":[],\"lineItems\":[{\"qty\":1,\"desc\":\"Gothiing C9 Aniivevea\",\"price\":\"0.00\",\"lineTotal\":\"14.99\"}]},\"success\":true,\"code\":202}";
             JSONObject resJsonObj = new JSONObject(receiptRes);
             while (resJsonObj.getString("status").equals("pending")) {
                 saveScanToken(token);

@@ -5,34 +5,19 @@ import android.app.DatePickerDialog;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.DisplayMetrics;
-import android.view.Display;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.github.mikephil.charting.animation.Easing;
-import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.text.DecimalFormat;
@@ -51,19 +36,12 @@ import csc472.depaul.edu.finalproject.R;
 import csc472.depaul.edu.finalproject.models.ILoadDataObserver;
 import csc472.depaul.edu.finalproject.models.TransactionLoadViewAdapter;
 import csc472.depaul.edu.finalproject.models.Transactions;
-import csc472.depaul.edu.finalproject.db.AccountDatabase;
 import csc472.depaul.edu.finalproject.db.DataProcessor;
 import lecho.lib.hellocharts.model.PieChartData;
 import lecho.lib.hellocharts.model.SliceValue;
 import lecho.lib.hellocharts.view.PieChartView;
 
 public class ExpenseReportActivity extends AppCompatActivity implements ILoadDataObserver {
-    private final static int TIME_UPDATE = 0x123456;
-    private static String NAME_HOLDER = "NAME_HOLDER";
-    private static String INITIAL_HOLDER = "INITIAL_HOLDER";
-    private static String CURRENT_HOLDER = "CURRENT_HOLDER";
-    private static String RATE_HOLDER = "RATE_HOLDER";
-
     private RecyclerView recyclerView;
     private TransactionLoadViewAdapter transactionLoadViewAdapter;
     private TransactionViewModel transactionViewModel;
@@ -106,15 +84,7 @@ public class ExpenseReportActivity extends AppCompatActivity implements ILoadDat
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-//        transactionLoadViewAdapter.setClickListener(this);
         recyclerView.setAdapter(transactionLoadViewAdapter);
-
-//        recyclerView.setItemAnimator(new DefaultItemAnimator());
-////        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-//        recyclerView.setAdapter(accountsAdapter);
-//
-//        ItemTouchHelper.SimpleCallback itemTouchHelperCallBack = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, this);
-//        new ItemTouchHelper(itemTouchHelperCallBack).attachToRecyclerView(recyclerView);
     }
 
     @Override
@@ -148,32 +118,6 @@ public class ExpenseReportActivity extends AppCompatActivity implements ILoadDat
     }
 
     protected void onSaveInstanceState(Bundle savedInstanceState) {
-//        if (savedInstanceState != null)
-//        {
-////            final TextView name = findViewById(R.id.name);
-////            if (name != null)
-////            {
-////                savedInstanceState.putString(NAME_HOLDER, name.getText().toString());
-////            }
-//
-//            final TextView initial = findViewById(R.id.initial);
-//            if (initial != null)
-//            {
-//                savedInstanceState.putString(INITIAL_HOLDER, initial.getText().toString());
-//            }
-//
-//            final TextView current = findViewById(R.id.current);
-//            if (current != null)
-//            {
-//                savedInstanceState.putString(CURRENT_HOLDER, current.getText().toString());
-//            }
-//
-//            final TextView rate = findViewById(R.id.rate);
-//            if (rate != null)
-//            {
-//                savedInstanceState.putString(RATE_HOLDER, rate.getText().toString());
-//            }
-//        }
         super.onSaveInstanceState(savedInstanceState);
     }
 
